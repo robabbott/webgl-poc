@@ -1,0 +1,29 @@
+// Variables
+
+// Colors
+$black: #000;
+$white: #fff;
+$charcoal: #303030;
+$gray-light: #ccc;
+$flickr-pink: #ff0084;
+
+// Fonts
+$font-default: 'Roboto', sans-serif;
+$font-heading: 'Roboto Condensed', Arial, sans-serif;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Transitions
+$transition-base: all .3s ease-in-out;
+
+// Grid breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  uw: 1440px
+) !default;
