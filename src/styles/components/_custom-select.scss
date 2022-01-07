@@ -1,0 +1,53 @@
+.custom-select {
+  position: relative;
+  display: flex;
+
+  &:hover {
+    .custom-select__selected {
+      color: rgba(255, 255, 255, .75);
+    }
+  }
+
+  &__selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid $white;
+    color: $white;
+    font-size: 50px;
+    padding: 20px 0;
+    cursor: pointer;
+    transition: color .3s ease-in-out;
+
+    &-icon {
+      color: $white;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      padding-left: 30px;
+    }
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    background: $white;
+    color: $charcoal;
+
+    &-item {
+      padding: 15px 30px;
+      font-size: 20px;
+      text-decoration: none;
+      color: $charcoal;
+      transition: background-color .3s ease-in-out;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+}

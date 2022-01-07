@@ -1,2 +1,10 @@
+// Base
 @import 'styles/abstracts/variables.scss';
 @import 'styles/base/base.scss';
+@import 'styles/base/media.scss';
+@import 'styles/base/typography.scss';
+
+// Components
+@import 'styles/components/header.scss';
+@import 'styles/components/home.scss';
+@import 'styles/components/custom-select.scss';

@@ -1,0 +1,27 @@
+.hdg {
+  font-family: $font-heading;
+  line-height: 1;
+
+  &--1 {
+    font-size: 30px;
+    font-weight: $font-weight-regular;
+    color: $gray;
+  }
+
+  &--2 {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+  }
+
+  &--3 {
+    font-size: 16px;
+    font-weight: $font-weight-light;
+  }
+}
+
+.hdg,
+p {
+  display: block;
+  margin: 0 0 30px;
+}
