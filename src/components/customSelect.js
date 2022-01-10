@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as Arrow } from '../images/arrow.svg';
 
 const options = {
-  'pool-10300': 'Pool (10300 points)',
-  'pool-124733': 'Pool (124733 points)',
+  'cloud-pool-124733': 'Point Cloud Pool (124733 points)',
+  'mesh-pool-124733': 'Wire Mesh Pool (124733 points)'
 };
 
 const CustomSelect = () => {
@@ -20,8 +20,13 @@ const CustomSelect = () => {
   
   return (
     <div className='custom-select'>
-      <div className='custom-select__selected'>
-        <span className='custom-select__selected-text' onClick={toggling}>
+      <div
+        className={`custom-select__selected ${
+          isOpen ? 'custom-select__selected--open' : ''
+        }`}
+        onClick={toggling}
+      >
+        <span className='custom-select__selected-text'>
           {selectedOption || 'Choose a rendering'}
         </span>
         <span className='custom-select__selected-icon'>

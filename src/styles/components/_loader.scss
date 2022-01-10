@@ -1,0 +1,42 @@
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 50;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  div {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 3px solid $bright-orange;
+    border-radius: 50%;
+    animation: ring .75s linear infinite;
+    border-color: $bright-orange transparent transparent;
+
+    &:nth-child(1) {
+      animation-delay: -.45s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: -.3s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: -.15s;
+    }
+  }
+}
+
+@keyframes ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

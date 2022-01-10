@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CustomSelect from './customSelect';
-import logo from '../images/bright-ai-logo.png'
 
 class Home extends Component {
   render() {

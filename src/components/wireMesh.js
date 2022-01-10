@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import * as BABYLON from 'babylonjs';
 import data from '../json/dolomite-pool-124733.json';
 
-const positions = data.points
-
-class PointCloud extends Component {
+class WireMesh extends Component {
   buildScene = () => {
     // Engine & Scene Setup
     this.engine = new BABYLON.Engine(this.canvas, true);
@@ -63,37 +61,28 @@ class PointCloud extends Component {
    * Adds point cloud to scene
    */
   addPoints = () => {
-    var mat = new BABYLON.StandardMaterial('mat', this.scene);
-    mat.emissiveColor = new BABYLON.Color3(1, 1, 1);
-    mat.disableLighting = true;
+    const positions = [];
+    const indices = [];
 
-    var particleCount = positions.length;
-    var plane = BABYLON.MeshBuilder.CreateIcoSphere(
-      'plane',
-      { subdivisions: 1, radius: 8 },
-      this.scene
-    );
-    var SPS = new BABYLON.SolidParticleSystem('SPS', this.scene);
-    SPS.addShape(plane, particleCount);
-    var mesh = SPS.buildMesh();
-    mesh.material = mat;
-    mesh.position.y = -50;
-    mesh.position.x = -50;
-    mesh.freezeWorldMatrix();
-    mesh.alwaysSelectAsActiveMesh = true;
-    plane.dispose(); // free memory
+    for (let p = 0; p < data.points.length; p++) {
+      indices.push(p);
 
-    SPS.initParticles = () => {
-      for (let p = 0; p < positions.length; p++) {
-        SPS.particles[p].position.x = positions[p][0];
-        SPS.particles[p].position.y = positions[p][1];
-        SPS.particles[p].position.z = positions[p][2];
+      for (let i = 0; i < data.points[p].length; i++) {
+        positions.push(data.points[p][i]);
       }
-    };
+    }
 
-    // init all particle values and set them once
-    SPS.initParticles();
-    SPS.setParticles();
+    const customMesh = new BABYLON.Mesh('custom', this.scene);
+    const vertexData = new BABYLON.VertexData();
+
+    vertexData.positions = positions;
+    vertexData.indices = indices;
+    vertexData.applyToMesh(customMesh);
+
+    const material = new BABYLON.StandardMaterial('floor0', this.scene);
+    material.emissiveColor = new BABYLON.Color3(1, 1, 1);
+    material.wireframe = true;
+    customMesh.material = material;
   };
 
   onWindowResize = () => {
@@ -121,4 +110,4 @@ class PointCloud extends Component {
   }
 }
 
-export default PointCloud
+export default WireMesh

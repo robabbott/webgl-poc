@@ -4,7 +4,7 @@
 
   &:hover {
     .custom-select__selected {
-      color: rgba(255, 255, 255, .75);
+      opacity: .5;
     }
   }
 
@@ -17,14 +17,21 @@
     font-size: 50px;
     padding: 20px 0;
     cursor: pointer;
-    transition: color .3s ease-in-out;
+    transition: opacity .3s ease-in-out;
 
     &-icon {
       color: $white;
       width: 30px;
       height: 30px;
       display: flex;
-      padding-left: 30px;
+      margin-left: 30px;
+      transition: transform .3s ease-in-out;
+    }
+
+    &--open {
+      .custom-select__selected-icon {
+        transform: rotate(-180deg);
+      }
     }
   }
 
