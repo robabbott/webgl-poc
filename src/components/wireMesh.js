@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as BABYLON from 'babylonjs';
-import data from '../json/dolomite-pool-124733.json';
+
+const data = []
 
 class WireMesh extends Component {
   buildScene = () => {

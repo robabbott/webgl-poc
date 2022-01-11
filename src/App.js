@@ -13,8 +13,8 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='cloud-pool-124733' element={<PointCloud />} />
-        <Route path='mesh-pool-124733' element={<WireMesh />} />
+        <Route path='pool-cloud' element={<PointCloud />} />
+        <Route path='pool-mesh' element={<WireMesh />} />
       </Routes>
     </div>
   );

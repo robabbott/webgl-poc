@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as Arrow } from '../images/arrow.svg';
 
 const options = {
-  'cloud-pool-124733': 'Point Cloud Pool (124733 points)',
-  'mesh-pool-124733': 'Wire Mesh Pool (124733 points)'
+  'pool-cloud?points=1314': 'Point Cloud Pool (1314 points)',
+  'pool-cloud?points=10300': 'Point Cloud Pool (10300 points)',
+  'pool-cloud?points=124733': 'Point Cloud Pool (124733 points)',
+  'pool-cloud?points=1378174': 'Point Cloud Pool (1378174 points)',
+  'pool-mesh?points=124733': 'Wire Mesh Pool (124733 points)',
 };
 
 const CustomSelect = () => {
@@ -34,19 +37,21 @@ const CustomSelect = () => {
         </span>
       </div>
       {isOpen && (
-        <div className='custom-select__options'>
+        <ul className='custom-select__options'>
           {Object.keys(options).map((key, i) => {
             return (
-              <Link
-                onClick={onOptionClicked(key)}
-                className='custom-select__options-item'
-                to={'/' + key}
-              >
-                {options[key]}
-              </Link>
+              <li className='custom-select__options-item' key={key}>
+                <Link
+                  onClick={onOptionClicked(key)}
+                  className='custom-select__options-link'
+                  to={'/' + key}
+                >
+                  {options[key]}
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ul>
       )}
     </div>
   );

@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import { getQuery } from '../util/util';
 import * as BABYLON from 'babylonjs';
-import data from '../json/dolomite-pool-124733.json';
-
-const positions = data.points
+import Loader from '../components/loader'
 
 class PointCloud extends Component {
+  state = {
+    loading: false,
+    data: [],
+  };
+
   buildScene = () => {
     // Engine & Scene Setup
     this.engine = new BABYLON.Engine(this.canvas, true);
@@ -63,19 +67,22 @@ class PointCloud extends Component {
    * Adds point cloud to scene
    */
   addPoints = () => {
-    var mat = new BABYLON.StandardMaterial('mat', this.scene);
+    const data = this.state.data;
+
+    const mat = new BABYLON.StandardMaterial('mat', this.scene);
     mat.emissiveColor = new BABYLON.Color3(1, 1, 1);
     mat.disableLighting = true;
 
-    var particleCount = positions.length;
-    var plane = BABYLON.MeshBuilder.CreateIcoSphere(
+    const plane = BABYLON.MeshBuilder.CreateIcoSphere(
       'plane',
-      { subdivisions: 1, radius: 8 },
+      { subdivisions: 1, radius: 10 },
       this.scene
     );
-    var SPS = new BABYLON.SolidParticleSystem('SPS', this.scene);
-    SPS.addShape(plane, particleCount);
-    var mesh = SPS.buildMesh();
+
+    const SPS = new BABYLON.SolidParticleSystem('SPS', this.scene);
+    SPS.addShape(plane, data.length);
+
+    const mesh = SPS.buildMesh();
     mesh.material = mat;
     mesh.position.y = -50;
     mesh.position.x = -50;
@@ -84,14 +91,13 @@ class PointCloud extends Component {
     plane.dispose(); // free memory
 
     SPS.initParticles = () => {
-      for (let p = 0; p < positions.length; p++) {
-        SPS.particles[p].position.x = positions[p][0];
-        SPS.particles[p].position.y = positions[p][1];
-        SPS.particles[p].position.z = positions[p][2];
+      for (let p = 0; p < data.length; p++) {
+        SPS.particles[p].position.x = data[p][0];
+        SPS.particles[p].position.y = data[p][1];
+        SPS.particles[p].position.z = data[p][2];
       }
     };
 
-    // init all particle values and set them once
     SPS.initParticles();
     SPS.setParticles();
   };
@@ -101,6 +107,22 @@ class PointCloud extends Component {
   };
 
   componentDidMount() {
+    this.setState({
+      loading: true,
+    });
+
+    const query = getQuery('points');
+    fetch('./json/dolomite-pool-' + query + '.json')
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          loading: false,
+          data: data.points,
+        });
+      });
+  }
+
+  componentDidUpdate() {
     this.buildScene();
   }
 
@@ -111,6 +133,7 @@ class PointCloud extends Component {
   render() {
     return (
       <div className='module'>
+        {this.state.loading ? <Loader /> : ''}
         <canvas
           ref={(canvas) => {
             this.canvas = canvas;
