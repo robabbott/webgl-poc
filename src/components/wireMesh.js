@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { getQuery } from '../util/util';
 import * as BABYLON from 'babylonjs';
-
-const data = []
+import Loader from '../components/loader';
 
 class WireMesh extends Component {
+  state = {
+    loading: false,
+    data: [],
+  };
+
   buildScene = () => {
     // Engine & Scene Setup
     this.engine = new BABYLON.Engine(this.canvas, true);
@@ -62,14 +67,15 @@ class WireMesh extends Component {
    * Adds point cloud to scene
    */
   addPoints = () => {
+    const data = this.state.data;
     const positions = [];
     const indices = [];
 
-    for (let p = 0; p < data.points.length; p++) {
+    for (let p = 0; p < data.length; p++) {
       indices.push(p);
 
-      for (let i = 0; i < data.points[p].length; i++) {
-        positions.push(data.points[p][i]);
+      for (let i = 0; i < data[p].length; i++) {
+        positions.push(data[p][i]);
       }
     }
 
@@ -91,6 +97,22 @@ class WireMesh extends Component {
   };
 
   componentDidMount() {
+    this.setState({
+      loading: true,
+    });
+
+    const query = getQuery('points');
+    fetch('./json/dolomite-pool-' + query + '.json')
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          loading: false,
+          data: data.points,
+        });
+      });
+  }
+
+  componentDidUpdate() {
     this.buildScene();
   }
 
@@ -101,6 +123,7 @@ class WireMesh extends Component {
   render() {
     return (
       <div className='module'>
+        {this.state.loading ? <Loader /> : ''}
         <canvas
           ref={(canvas) => {
             this.canvas = canvas;
@@ -111,4 +134,4 @@ class WireMesh extends Component {
   }
 }
 
-export default WireMesh
+export default WireMesh;

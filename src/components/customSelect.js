@@ -7,7 +7,10 @@ const options = {
   'pool-cloud?points=10300': 'Point Cloud Pool (10300 points)',
   'pool-cloud?points=124733': 'Point Cloud Pool (124733 points)',
   'pool-cloud?points=1378174': 'Point Cloud Pool (1378174 points)',
+  'pool-mesh?points=1314': 'Wire Mesh Pool (1314 points)',
+  'pool-mesh?points=10300': 'Wire Mesh Pool (10300 points)',
   'pool-mesh?points=124733': 'Wire Mesh Pool (124733 points)',
+  'pool-mesh?points=1378174': 'Wire Mesh Pool (1378174 points)'
 };
 
 const CustomSelect = () => {
@@ -30,7 +33,7 @@ const CustomSelect = () => {
         onClick={toggling}
       >
         <span className='custom-select__selected-text'>
-          {selectedOption || 'Choose a rendering'}
+          {selectedOption || 'Choose a render'}
         </span>
         <span className='custom-select__selected-icon'>
           <Arrow />

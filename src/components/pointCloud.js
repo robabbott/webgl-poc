@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import { getQuery } from '../util/util';
 import * as BABYLON from 'babylonjs';
 import Loader from '../components/loader'
