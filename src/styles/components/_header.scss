@@ -9,7 +9,12 @@
   z-index: 999;
 
   &__logo {
-    width: 300px;
-    padding: 30px;
+    width: 200px;
+    padding: 20px;
+
+    @media only screen and (min-width: map-get($grid-breakpoints, 'lg'))  {
+      width: 300px;
+      padding: 30px;
+    }
   }
 }

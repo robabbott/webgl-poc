@@ -4,8 +4,7 @@ import './App.scss';
 
 import Header from './components/header';
 import Home from './components/home';
-import PointCloud from './components/pointCloud';
-import WireMesh from './components/wireMesh';
+import RenderScene from './components/renderScene';
 
 function App() {
   return (
@@ -13,8 +12,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='pool-cloud' element={<PointCloud />} />
-        <Route path='pool-mesh' element={<WireMesh />} />
+        <Route path='render-scene' element={<RenderScene />} />
       </Routes>
     </div>
   );

@@ -5,7 +5,7 @@ class Home extends Component {
   render() {
     return (
       <div className='home'>
-        <h1 className='hdg hdg--1'>WebGL POC</h1>
+        <h1 className='home__hdg hdg hdg--1'>WebGL POC</h1>
         <CustomSelect />
       </div>
     );

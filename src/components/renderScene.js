@@ -3,22 +3,40 @@ import { getQuery } from '../util/util';
 import * as BABYLON from 'babylonjs';
 import Loader from '../components/loader'
 
-class PointCloud extends Component {
+/**
+ * RenderScene: Class used for rendering Babylon point clouds and wire meshes
+ */
+class RenderScene extends Component {
   state = {
     loading: false,
     data: [],
   };
 
+  /**
+   * Parent function for building the Babylon scene
+   */
   buildScene = () => {
+    if (this.state.data.length < 1) {
+      return;
+    }
+
+    const type = getQuery('type');
+
     // Engine & Scene Setup
+    // Color3 values are calculated using the RGB value divided by 255
     this.engine = new BABYLON.Engine(this.canvas, true);
     this.scene = new BABYLON.Scene(this.engine);
     this.scene.clearColor = new BABYLON.Color3(48 / 255, 48 / 255, 48 / 255);
 
     // Build View
     this.addCamera();
-    this.addLight();
-    this.addPoints();
+    // this.addLight();
+
+    if (type === 'cloud') {
+      this.addCloud();
+    } else if (type === 'mesh') {
+      this.addMesh();
+    }
 
     // Events
     window.addEventListener('resize', this.onWindowResize, false);
@@ -66,7 +84,7 @@ class PointCloud extends Component {
   /**
    * Adds point cloud to scene
    */
-  addPoints = () => {
+  addCloud = () => {
     const data = this.state.data;
 
     const mat = new BABYLON.StandardMaterial('mat', this.scene);
@@ -102,10 +120,45 @@ class PointCloud extends Component {
     SPS.setParticles();
   };
 
+  /**
+   * Adds wire mesh to scene
+   */
+  addMesh = () => {
+    const data = this.state.data;
+    const positions = [];
+    const indices = [];
+
+    for (let p = 0; p < data.length; p++) {
+      indices.push(p);
+
+      for (let i = 0; i < data[p].length; i++) {
+        positions.push(data[p][i]);
+      }
+    }
+
+    const customMesh = new BABYLON.Mesh('mesh', this.scene);
+    const vertexData = new BABYLON.VertexData();
+
+    vertexData.positions = positions;
+    vertexData.indices = indices;
+    vertexData.applyToMesh(customMesh);
+
+    const material = new BABYLON.StandardMaterial('mat', this.scene);
+    material.emissiveColor = new BABYLON.Color3(1, 1, 1);
+    material.wireframe = true;
+    customMesh.material = material;
+  };
+
+  /**
+   * Resize Babylon engine on window resize
+   */
   onWindowResize = () => {
     this.engine.resize();
   };
 
+  /**
+   * Set loading state and fetch json file on mount
+   */
   componentDidMount() {
     this.setState({
       loading: true,
@@ -122,14 +175,23 @@ class PointCloud extends Component {
       });
   }
 
+  /**
+   * When state is updated (data received), build the scene
+   */
   componentDidUpdate() {
     this.buildScene();
   }
 
+  /**
+   * Remove window resize listener
+   */
   componentWillUnmount() {
     window.removeEventListener('resize', this.onWindowResize, false);
   }
 
+  /**
+   * Render the component markup
+   */
   render() {
     return (
       <div className='module'>
@@ -144,4 +206,4 @@ class PointCloud extends Component {
   }
 }
 
-export default PointCloud
+export default RenderScene

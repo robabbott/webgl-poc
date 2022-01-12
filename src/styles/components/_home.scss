@@ -4,4 +4,10 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+
+  &__hdg {
+    @media only screen and (min-width: map-get($grid-breakpoints, 'lg'))  {
+      margin: 0 0 10px;
+    }
+  }
 }
