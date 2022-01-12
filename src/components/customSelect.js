@@ -59,7 +59,7 @@ const CustomSelect = () => {
         onClick={toggling}
       >
         <span className='custom-select__selected-text'>
-          {selectedOption || 'Choose a render'}
+          {selectedOption || 'Choose a model'}
         </span>
         <span className='custom-select__selected-icon'>
           <Arrow />
