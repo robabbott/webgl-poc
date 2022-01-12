@@ -2,7 +2,10 @@ import React from 'react'
 import { Engine, Mesh, Scene, Sphere } from 'react-babylonjs'
 import { Vector3 } from '@babylonjs/core';
 
-function DefaultPlayground() {
+/**
+ * Testing "react-babylonjs" implementation
+ */
+function BabylonTesting() {
   return (
     <div className='module'>
       <Engine
@@ -39,4 +42,4 @@ function DefaultPlayground() {
   );
 }
 
-export default DefaultPlayground
+export default BabylonTesting;

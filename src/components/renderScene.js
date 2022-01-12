@@ -51,8 +51,7 @@ class RenderScene extends Component {
    * Adds camera to scene
    */
   addCamera = () => {
-    // ---------------ArcRotateCamera or Orbit Control----------
-    const camera = new BABYLON.ArcRotateCamera(
+    this.camera = new BABYLON.ArcRotateCamera(
       'Camera',
       7.85,
       2.5,
@@ -60,12 +59,17 @@ class RenderScene extends Component {
       BABYLON.Vector3.Zero(),
       this.scene
     );
-    camera.wheelPrecision = 0.1;
-    camera.minZ = 0.01;
-    camera.maxZ = 100000000;
+    this.camera.wheelPrecision = 0.1;
+    this.camera.minZ = 0.01;
+    this.camera.maxZ = 100000000;
+
+    // Allows camera to rotate infinitely
+    this.camera.lowerBetaLimit = null
+    this.camera.upperBetaLimit = null;
+    this.camera.allowUpsideDown = true;
 
     // This attaches the camera to the canvas
-    camera.attachControl(this.canvas, true);
+    this.camera.attachControl(this.canvas, true);
   };
 
   /**
@@ -164,8 +168,8 @@ class RenderScene extends Component {
       loading: true,
     });
 
-    const query = getQuery('points');
-    fetch('./json/dolomite-pool-' + query + '.json')
+    const model = getQuery('model');
+    fetch('./json/' + model + '.json')
       .then((res) => res.json())
       .then((data) => {
         this.setState({

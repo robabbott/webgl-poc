@@ -3,14 +3,24 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as Arrow } from '../images/arrow.svg';
 
 const options = {
-  'render-scene?type=cloud&points=1314': 'Point Cloud Pool (1314 points)',
-  'render-scene?type=cloud&points=10300': 'Point Cloud Pool (10300 points)',
-  'render-scene?type=cloud&points=124733': 'Point Cloud Pool (124733 points)',
-  'render-scene?type=cloud&points=1378174': 'Point Cloud Pool (1378174 points)',
-  'render-scene?type=mesh&points=1314': 'Wire Mesh Pool (1314 points)',
-  'render-scene?type=mesh&points=10300': 'Wire Mesh Pool (10300 points)',
-  'render-scene?type=mesh&points=124733': 'Wire Mesh Pool (124733 points)',
-  'render-scene?type=mesh&points=1378174': 'Wire Mesh Pool (1378174 points)',
+  'sky-box':
+    'Skybox Example',
+  'render-scene?type=cloud&model=dolomite-pool-1314':
+    'Point Cloud Pool (1314 points)',
+  'render-scene?type=cloud&model=dolomite-pool-10300':
+    'Point Cloud Pool (10300 points)',
+  'render-scene?type=cloud&model=dolomite-pool-124733':
+    'Point Cloud Pool (124733 points)',
+  'render-scene?type=cloud&model=dolomite-pool-1378174':
+    'Point Cloud Pool (1378174 points)',
+  'render-scene?type=mesh&model=dolomite-pool-1314':
+    'Wire Mesh Pool (1314 points)',
+  'render-scene?type=mesh&model=dolomite-pool-10300':
+    'Wire Mesh Pool (10300 points)',
+  'render-scene?type=mesh&model=dolomite-pool-124733':
+    'Wire Mesh Pool (124733 points)',
+  'render-scene?type=mesh&model=dolomite-pool-1378174':
+    'Wire Mesh Pool (1378174 points)',
 };
 
 const CustomSelect = () => {
